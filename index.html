@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>东游记</title>
+  <link rel="icon" type="image/webp" href="./logo.webp" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+  <div class="bg-stadium"></div>
+  <header class="topbar">
+    <div class="brand">
+      <img src="./logo.webp" alt="Logo" class="brand-logo footer-logo">
+      <h1>东游记</h1>
+    </div>
+    <nav class="topnav">
+      <button class="nav-item active">首页</button>
+      <button id="btnOpenRanks" class="nav-item">排行榜</button>
+      <button id="btnOpenHistory" class="nav-item">签局记录</button>
+      <button id="btnOpenRules" class="nav-item">玩法说明</button>
+      <button id="btnOpenPersonal" class="nav-item">我的数据</button>
+    </nav>
+    <div class="header-actions">
+      <button id="btnTopDraw" class="btn-task btn-refresh-round" title="手动刷新/本轮开奖">
+        <i class="fa-solid fa-arrows-rotate"></i>
+        <span>开奖/刷新</span>
+      </button>
+      <button id="btnConnect" class="btn btn-primary">连接钱包</button>
+    </div>
+  </header>
+  <main class="main-layout">
+    <div class="top-row">
+      <section class="hero-section">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h2>东游记</h2>
+            <p>结伴过海 · 共逐天命奖池</p>
+            <div class="hero-stats">
+              <div class="hero-stat-item"><span>当前状态</span><strong id="roundState">-</strong></div>
+              <div class="hero-stat-item"><span id="countdownLabel">距离封盘</span><strong id="lockCountdown">-</strong></div>
+              <div class="hero-stat-item"><span>当前轮次</span><strong id="roundId">-</strong></div>
+            </div>
+            <div class="hero-btns">
+              <button class="btn-hero btn-hero-primary" onclick="document.getElementById('firstAvatar').focus()">立即落签</button>
+              <button class="btn-hero btn-hero-outline" onclick="document.getElementById('btnOpenRules').click()">玩法说明</button>
+            </div>
+          </div>
+          <div class="trophy-display">
+            <img src="./天命池.webp" alt="天命池" class="boot-image">
+            <div class="jackpot-display">
+              <span>当前超级奖池</span>
+              <h3 id="jackpotPool">0.00 BNB</h3>
+              <p id="eligibilityStatus">资格检测中...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <aside class="live-activity"><div class="live-head"><h4>实时动态</h4><a href="#">更多 ></a></div><div id="liveActivityList" class="activity-list"></div></aside>
+    </div>
+    <section class="combo-section">
+      <article class="feature-card hot double-saint-card combo-card"><div class="double-saint-layout"><div class="card-info"><h4>选择你的过海组合</h4><p>从 18 位人物中选择 2 位同行者组成你的过海阵容，命中人物即可中奖。</p><div class="selected-slots"><div class="slot-card"><span>领航者</span><strong id="firstSlotLabel">待选</strong><button id="clearFirstAvatar" class="slot-clear" type="button">×</button></div><div class="slot-card"><span>护航者</span><strong id="secondSlotLabel">待选</strong><button id="clearSecondAvatar" class="slot-clear" type="button">×</button></div></div><div id="avatarGrid" class="avatar-picker-grid"></div><div class="input-group is-hidden"><select id="firstAvatar"></select><select id="secondAvatar"></select><p id="inputPreview" class="inline-tip">当前过海组合：待选择</p></div></div><div class="buy-summary-panel"><div class="summary-head"><span>当前过海组合</span><strong id="currentPairDisplay">待选择</strong></div><div class="summary-count"><span>同行数量</span><strong>1 组</strong></div><div class="summary-price">50,000 代币 / 组</div><button id="btnBuy" class="btn btn-primary summary-buy">确认同行</button><div class="summary-tips"><span>持币要求：≥ 1,000,000 代币</span><span>开奖前封盘：锁定当前组合</span><span>每钱包每轮最多：5 组</span></div><button id="btnToggleParticipation" class="btn-enter summary-link" type="button">查看本轮组合</button></div></div></article>
+    </section>
+    <div class="support-grid">
+      <article class="feature-card"><div class="card-info"><h4>领取奖池</h4><p>提取你当前可领取的 BNB 奖励</p><div class="my-stats-list"><div class="my-stat-row"><span>待领取</span><strong id="myClaimable">0.00 BNB</strong></div></div><div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;"><button id="btnClaim" class="btn btn-primary">立即领取</button><button id="btnClaimRelief" class="btn" style="display:none; border-color: var(--gold); color: var(--gold);">领取保底奖励</button><p class="inline-tip">中奖或保底奖励请在 3 小时内领取</p><p id="reliefStatus" class="inline-tip">持币保底状态：待检测</p></div></div><div class="card-media support-media"><img src="./领取奖池.webp" alt="领取奖池"></div></article>
+      <article class="feature-card"><div class="card-info"><h4>福缘池</h4><p>为长期未中的地址累积补偿与福缘</p><div class="my-stats-list"><div class="my-stat-row"><span>池总额</span><strong id="fortunePool">0.00 BNB</strong></div><div class="my-stat-row"><span>我的福缘</span><strong id="myFortunePoints">0</strong></div></div><button class="btn-enter" style="margin-top: 20px;" onclick="document.getElementById('btnOpenRules').click()">玩法说明</button></div><div class="card-media support-media"><img src="./福缘池.webp" alt="福缘池"></div></article>
+      <article class="feature-card"><div class="card-info"><h4>过海信息</h4><p>当前奖池、合约与上轮过海结果</p><div class="my-stats-list"><div class="my-stat-row"><span>上轮过海组合</span><strong id="lastWinningNumber">-</strong></div><div class="my-stat-row"><span>本轮结束</span><strong id="roundEndTime" style="font-size: 12px;">-</strong></div></div><p id="vaultAddr" class="mono" style="font-size: 10px; color: #666; margin-top: 15px;">合约地址：-</p></div><div class="card-media support-media"><img src="./过海信息.webp" alt="过海信息"></div></article>
+    </div>
+    <div class="data-grid">
+      <section class="data-card"><div class="data-card-head"><h4>今日天命榜</h4><span class="more" onclick="setDrawerOpen('rankDrawer', true, 'rich')">更多 ></span></div><ol id="richList" class="ucl-rank-list"><li class="empty-state">加载中...</li></ol></section>
+      <section class="data-card"><div class="data-card-head"><h4>过海记录</h4><span class="more" onclick="setDrawerOpen('historyDrawer', true)">更多 ></span></div><div id="historyList" class="ucl-rank-list"></div></section>
+      <section class="data-card"><div class="data-card-head"><h4>同行榜</h4><span class="more" onclick="setDrawerOpen('rankDrawer', true, 'burn')">更多 ></span></div><ol id="burnList" class="ucl-rank-list"><li class="empty-state">加载中...</li></ol></section>
+      <section class="data-card"><div class="data-card-head"><h4>我的数据</h4><span class="more" onclick="setDrawerOpen('personalDrawer', true)">详情 ></span></div><div class="my-stats-list"><div class="my-stat-row"><span>累计所得</span><strong id="myTotalWon">-</strong></div><div class="my-stat-row"><span>累计消耗</span><strong id="myTotalBurned">-</strong></div><div class="my-stat-row"><span>我的福缘</span><strong id="myFortunePoints_dup">-</strong></div></div><div class="attack-form" style="margin-top: 20px;"><p id="taxToken" class="mono" style="font-size: 10px; color: #444; text-align: center;">代币地址：-</p></div></section>
+    </div>
+    <section class="log-wrap"><h3><i class="fas fa-broadcast-tower"></i> 实时播报</h3><pre id="log"></pre></section>
+  </main>
+  <div id="rankDrawer" class="drawer"><div id="drawerBackdrop" class="drawer-backdrop"></div><section class="drawer-panel"><div class="drawer-head"><h3>榜单总览</h3><button id="btnCloseRanks" class="btn">关闭</button></div><div class="rank-tabs"><button class="rank-tab-btn active" data-tab="rich">天命榜</button><button class="rank-tab-btn" data-tab="burn">落签榜</button><button class="rank-tab-btn" data-tab="fortune">福缘榜</button><button class="rank-tab-btn" data-tab="diamond">持币榜</button></div><div class="rank-actions"><button id="btnLoadRanks" class="btn">刷新榜单数据</button></div><div class="rank-content"><div class="rank-pane active" id="pane-rich"><h4>天命榜</h4><ol id="richList_drawer" class="rank-list"></ol></div><div class="rank-pane" id="pane-burn"><h4>落签榜</h4><ol id="burnList_drawer" class="rank-list"></ol></div><div class="rank-pane" id="pane-fortune"><h4>福缘榜</h4><ol id="fortuneList" class="rank-list"></ol></div><div class="rank-pane" id="pane-diamond"><h4>持币榜</h4><ol id="diamondList" class="rank-list"></ol></div></div></section></div>
+  <div id="rulesDrawer" class="drawer"><div id="rulesBackdrop" class="drawer-backdrop"></div><section class="drawer-panel"><div class="drawer-head"><h3>玩法机制</h3><button id="btnCloseRules" class="btn">关闭</button></div><div class="rules-content"><div class="rules-intro"><strong>三步进入过海组合</strong><p>持币达标 → 选择两位不同人物组成组合 → 等待本轮开奖；所有规则以链上结果为准。</p></div><div class="rule-grid"><section class="rule-card"><div class="rule-head"><i class="fas fa-coins"></i><h4>奖池流向</h4><span class="rule-badge">资金分配</span></div><ul class="desc"><li>每笔进入金库的 BNB：80% 进入主奖池，20% 进入国库。</li><li>每轮只释放当前奖池的 20%。</li><li>该 20% 中：90% 发给本轮命中地址，10% 进入福缘池。</li><li>中奖或保底奖励需在 3 小时内领取</li></ul></section><section class="rule-card"><div class="rule-head"><i class="fas fa-user-check"></i><h4>入局资格</h4><span class="rule-badge">门槛规则</span></div><ul class="desc"><li>钱包至少持有 1,000,000 枚参赛代币。</li><li>每次同行消耗并销毁 50,000 枚代币。</li><li>单轮最多同行 5 次，且不可重复提交同一组合。</li></ul></section><section class="rule-card"><div class="rule-head"><i class="fas fa-stopwatch"></i><h4>过海规则</h4><span class="rule-badge">核心玩法</span></div><ul class="desc"><li>18 位固定人物编号为 0-17。</li><li>每次需选择 2 个不同人物，链上自动按无序组合处理。</li><li>每期开奖只产生 1 组人物组合，命中这两位人物即可中奖。</li></ul></section><section class="rule-card rule-card-highlight"><div class="rule-head"><i class="fas fa-shield-halved"></i><h4>持币保底</h4><span class="rule-badge">特殊保护</span></div><ul class="desc"><li>连续 10 轮无人中奖时触发保底轮。</li><li>仅面向持仓 1000 万以上的真实持币地址。</li><li>底池地址、黑洞地址等系统地址不参与分配。</li></ul></section></div></div></section></div>
+  <div id="historyDrawer" class="drawer"><div id="historyBackdrop" class="drawer-backdrop"></div><section class="drawer-panel"><div class="drawer-head"><h3>近 100 期过海记录</h3><button id="btnCloseHistory" class="btn">关闭</button></div><div class="history-actions"><button id="btnToggleHistory" class="btn">展开到 100 期</button><div class="history-template-switch"><button class="history-template-btn active" data-template="list">列表</button><button class="history-template-btn" data-template="board">组合卡</button></div></div><div id="historyList_drawer" class="history-list"></div><div id="historyBoard" class="trend-board history-board" hidden></div></section></div>
+  <div id="participationDrawer" class="drawer"><div id="participationBackdrop" class="drawer-backdrop"></div><section class="drawer-panel"><div class="drawer-head"><h3>我的本轮组合</h3><button id="btnCloseParticipation" class="btn">关闭</button></div><div class="rules-content"><section class="rule-card rule-card-highlight"><div class="rule-head"><i class="fas fa-water"></i><h4>当前组合</h4><span class="rule-badge">本轮信息</span></div><p id="myRoundInfo" class="desc">我的本轮组合：-</p></section><section class="rule-card"><div class="rule-head"><i class="fas fa-clock-rotate-left"></i><h4>近 5 期参考</h4><span class="rule-badge">历史走势</span></div><p id="historyRefInfo" class="desc">近 5 期过海参考：-</p></section></div></section></div>
+  <div id="personalDrawer" class="drawer"><div id="personalBackdrop" class="drawer-backdrop"></div><section class="drawer-panel"><div class="drawer-head"><h3>我的记录详情</h3><button id="btnClosePersonal" class="btn">关闭</button></div><div class="my-stats-list"><div class="my-stat-row"><span>累计所得</span><strong id="myTotalWon_drawer">-</strong></div><div class="my-stat-row"><span>累计消耗</span><strong id="myTotalBurned_drawer">-</strong></div><div class="my-stat-row"><span>我的福缘</span><strong id="myFortunePoints_drawer">-</strong></div></div></section></div>
+  <footer class="site-footer"><div class="footer-content"><div class="footer-top"><div class="footer-brand"><img src="./logo.webp" alt="Logo" class="footer-logo"><span>东游记</span></div><div class="social-links"><a href="https://x.com/Alpha_hunter18" target="_blank" title="Twitter" class="social-item"><i class="fa-brands fa-x-twitter"></i></a><a href="https://t.me/Journey_to_the_East" target="_blank" title="Telegram" class="social-item"><i class="fa-brands fa-telegram"></i></a><div class="qq-group social-item"><i class="fa-brands fa-qq"></i><span class="qq-num">QQ群：请在此处填入群号</span></div></div></div><div class="footer-bottom"><div class="disclaimer"><strong>免责声明：</strong><p>本平台仅作为区块链技术演示与链上交互娱乐使用。参与者需自行承担区块链资产波动风险，所有操作均基于链上智能合约执行。请在法律允许范围内参与，并注意资产安全。</p></div><div class="copyright">&copy; 2026 东游记. All Rights Reserved.</div></div></div></footer>
+  <div id="globalLoading" class="global-loading" hidden><div class="global-loading-card"><div class="global-loading-spinner"></div><strong id="globalLoadingTitle">处理中</strong><p id="globalLoadingText">请稍候，系统正在同步链上状态...</p></div></div>
+  <div id="successToast" class="success-toast" hidden><div class="success-toast-card"><i class="fa-solid fa-circle-check"></i><div><strong id="successToastTitle">操作成功</strong><p id="successToastText">链上交易已确认</p></div></div></div>
+  <div id="customConfirm" class="drawer" style="z-index: 1500;"><div id="confirmBackdrop" class="drawer-backdrop"></div><section class="drawer-panel confirm-panel"><div class="confirm-body"><div class="confirm-icon"><i class="fa-solid fa-circle-question"></i></div><h3 id="confirmTitle">确认操作</h3><p id="confirmMessage">您确定要执行此操作吗？</p></div><div class="confirm-footer"><button id="btnConfirmCancel" class="btn">取消</button><button id="btnConfirmOk" class="btn btn-primary">确定</button></div></section></div>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
